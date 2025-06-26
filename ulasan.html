@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ulasan Produk</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+  <div class="flex min-h-screen">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white shadow-md p-6">
+      <h1 class="text-2xl font-bold mb-8">HSH</h1>
+      <nav class="space-y-4">
+        <a href="dashboard.html" class="block text-gray-700 hover:text-blue-600">Dashboard</a>
+        <a href="kategori.html" class="block text-gray-700 hover:text-blue-600">Kategori</a>
+        <a href="ulasan.html" class="block text-blue-600 font-semibold">Ulasan</a>
+        <a href="pengaturan.html" class="block text-gray-700 hover:text-blue-600">Pengaturan Akun</a>
+        <a href="login.html" class="block text-red-500 hover:text-red-600 mt-10">Logout</a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-10 space-y-10">
+      <div>
+        <h2 class="text-3xl font-bold mb-6">Ulasan Produk</h2>
+        <div id="reviewSection" class="space-y-6">
+          <!-- Ulasan akan muncul di sini -->
+        </div>
+      </div>
+
+      <!-- Form Tulis Ulasan -->
+      <div class="bg-white rounded-xl shadow-md p-6">
+        <h3 class="text-xl font-semibold mb-4">Tulis Ulasanmu di Sini</h3>
+        <form id="reviewForm" class="space-y-4">
+          <input type="text" id="product" placeholder="Nama Produk" required class="w-full p-2 border rounded-md" />
+          <input type="text" id="buyer" placeholder="Nama Pembeli" required class="w-full p-2 border rounded-md" />
+          <input type="text" id="image" placeholder="URL Gambar Produk (opsional)" class="w-full p-2 border rounded-md" />
+          <select id="rating" required class="w-full p-2 border rounded-md">
+            <option value="">Pilih Rating</option>
+            <option>⭐️⭐️⭐️⭐️⭐️</option>
+            <option>⭐️⭐️⭐️⭐️</option>
+            <option>⭐️⭐️⭐️</option>
+            <option>⭐️⭐️</option>
+            <option>⭐️</option>
+          </select>
+          <textarea id="comment" placeholder="Komentar" required class="w-full p-2 border rounded-md"></textarea>
+          <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Kirim Ulasan</button>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const section = document.getElementById('reviewSection');
+    const form = document.getElementById('reviewForm');
+
+    // Ambil dari localStorage atau pakai data default
+    const savedReviews = JSON.parse(localStorage.getItem('reviews')) || [
+      {
+        product: 'Sofa Minimalis',
+        buyer: 'Ayu Lestari',
+        image: 'sofa.jpg',
+        rating: '⭐️⭐️⭐️⭐️',
+        comment: 'Sofanya nyaman banget, cocok buat ruang tamu kecil!'
+      },
+      {
+        product: 'Kursi Makan Elegan',
+        buyer: 'Dewi Anggraini',
+        image: 'kursikayu.jpg',
+        rating: '⭐️⭐️⭐️⭐️⭐️',
+        comment: 'Modelnya mewah tapi harganya ramah kantong 😍'
+      },
+      {
+        product: 'Meja Makan Kayu',
+        buyer: 'Fajar Pratama',
+        image: 'mejamakan.jpg',
+        rating: '⭐️⭐️⭐️⭐️',
+        comment: 'Materialnya kokoh, recommended buat keluarga.'
+      },
+      {
+        product: 'Lemari Kayu',
+        buyer: 'Syahda Ishmatuka',
+        image: 'lemari.jpg',
+        rating: '⭐️⭐️⭐️⭐️',
+        comment: 'Kuat aman pollll!!!!!'
+      }
+    ];
+
+    savedReviews.forEach(displayReview);
+
+    function displayReview(review) {
+      const div = document.createElement('div');
+      div.className = 'bg-white rounded-xl shadow-md p-6 flex gap-4 items-start';
+      div.innerHTML = `
+        <img src="${review.image || 'https://via.placeholder.com/100x80?text=No+Image'}" alt="${review.product}" class="w-28 h-20 object-cover rounded-lg" onerror="this.src='https://via.placeholder.com/100x80?text=No+Image'"/>
+        <div>
+          <h3 class="text-lg font-bold">${review.product}</h3>
+          <p class="text-sm text-gray-600 mb-1">Oleh: ${review.buyer}</p>
+          <p class="text-yellow-500 text-sm mb-2">${review.rating}</p>
+          <p class="text-gray-700">${review.comment}</p>
+        </div>
+      `;
+      section.appendChild(div);
+    }
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const newReview = {
+        product: form.product.value,
+        buyer: form.buyer.value,
+        image: form.image.value,
+        rating: form.rating.value,
+        comment: form.comment.value
+      };
+
+      // Tampilkan langsung
+      displayReview(newReview);
+
+      // Simpan ke localStorage
+      savedReviews.push(newReview);
+      localStorage.setItem('reviews', JSON.stringify(savedReviews));
+
+      form.reset();
+    });
+  </script>
+</body>
+</html>
