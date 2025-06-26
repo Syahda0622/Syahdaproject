@@ -1,2 +1,2 @@
 # Syahdaproject
-Aplication of Furniture
+Application of Furniture
