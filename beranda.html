@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beranda</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-cover bg-center flex items-center justify-center" style="background-image: url('Background\ Index.jpg');">
+  <div class="bg-white/20 backdrop-blur-md p-8 rounded-2xl shadow-lg max-w-xl w-full text-grey text-center">
+    <h1 class="text-3xl font-bold mb-4">Selamat Datang di Aplikasi Home Sweet Home</h1>
+    <p class="text-lg">Aplikasi furniture yang menyediakan berbagai furniture impian kalian dengan model yang elegan dan mewah</p>
+  <button onclick="goToDashboard()" class="bg-blue-600 text-white px-4 py-2 rounded-lg mt-4">
+  Pergi ke Dashboard
+</button>
+
+<script>
+  function goToDashboard() {
+    window.location.href = 'dashboard.html'; 
+  }
+</script>
+</div>
+</body>
+</html>
